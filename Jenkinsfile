@@ -19,8 +19,8 @@ pipeline{
                 }
             }
             stage ('deploy-war'){
-                steps{
-                sh "scp -i Jenkins-Installation-script/my-linux.pem game-of-life/gameoflife-web/target/gameoflife.war ec2-user@172.31.45.246:/mnt/server/apache-tomcat-9.0.71/webapps"
+                steps {   
+                sh "scp -i /mnt/key-pair/Jenkins-Installation-script/my-linux.pem game-of-life/gameoflife-web/target/gameoflife.war ec2-user@172.31.45.246:/mnt/server/apache-tomcat-9.0.71/webapps"
                 }
             }
            
