@@ -23,6 +23,8 @@ pipeline {
 
         stage ('creation-of-docker-tomcat-container-phase-3') {
             steps {
+                sh "yum install docker -y"
+                sh "service docker start"
                 sh "docker run -itdp 80:8080 --name server-tomcat tomcat bash"
             }
         }
