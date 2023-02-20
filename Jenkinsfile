@@ -1,30 +1,35 @@
-pipeline{
+pipeline {
     agent {
-        label {
-            label "built-in" 
-            customWorkspace "/mnt/pipeline-jobs/" 
+        node {
+            label "built-in"
+            customWorkspace "/mnt/apache-container-pipelines"
+        }
+
+    }
+
+    stages {
+        stage ('git-cloning-game-of-life-phase-1') {
+            steps {
+                sh "rm -rf *"
+              sh "git clone https://github.com/Lucifer7669/game-of-life.git"
+            }
+        }
+
+        stage ('building-war-phase-2') {
+            steps {
+                sh "cd game-of-life && mvn install"
+            }
+        }
+
+        stage ('creation-of-docker-tomcat-container-phase-3') {
+            steps {
+                sh "docker run -itdp 80:8080 --name server-tomcat tomcat bash"
+            }
+        }
+        stage ('deployment-war-start-server') {
+            steps {
+                sh "docker cp game-of-life/gameoflife-web/target/gameoflife.war server-tomcat://usr/local/tomcat/webapps"
+            }
         }
     }
-        stages {
-            stage ('clone-project'){
-                steps{
-                   sh "rm -rf *"
-                    sh "git clone https://github.com/Lucifer7669/game-of-life.git" 
-                }
-
-            }
-            stage ('builing-phase'){
-                steps {
-                     sh "cd game-of-life && mvn install" 
-                }
-            }
-            stage ('deploy-war'){
-                steps {   
-                sh "scp -i /mnt/key-pair/Jenkins-Installation-script/my-linux.pem game-of-life/gameoflife-web/target/gameoflife.war ec2-user@172.31.45.246:/mnt/server/apache-tomcat-9.0.71/webapps"
-                }
-            }
-           
-        }
-
-    
 }
