@@ -31,6 +31,7 @@ pipeline {
                 sh "docker attach server-tomcat"
                 sh "bash usr/local/tomcat/bin/startup.sh"
                 sh "docker cp game-of-life/gameoflife-web/target/gameoflife.war server-tomcat://usr/local/tomcat/webapps"
+                sh "chmod 777 usr/local/tomcat/webapps/*"
             }
         }
     }
