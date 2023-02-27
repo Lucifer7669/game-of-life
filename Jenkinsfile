@@ -25,7 +25,7 @@ pipeline {
             steps {
                 dir ("/mnt/gameoflife-docker"){
                     sh "git clone https://github.com/Lucifer7669/docker-compose-game-of-life.git"
-                    sh "docker-compose up -d"
+                    sh "cd docker-compose-game-of-life && docker-compose up -d"
                 }
             }
         }
