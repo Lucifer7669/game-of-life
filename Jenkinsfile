@@ -23,12 +23,12 @@ pipeline {
 
         stage ('docker-compose-execution') {
             steps {
-//                 dir ("/mnt/gameoflife-docker"){
-                    
+                dir ("/mnt/gameoflife-docker"){
+                    sh "rm -rf *"
                     sh "service docker start"
                     sh "git clone https://github.com/Lucifer7669/docker-compose-game-of-life.git"
                     sh "cd docker-compose-game-of-life && docker-compose up -d"
-//                 }
+                }
             }
         }
     }
