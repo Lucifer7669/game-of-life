@@ -2,7 +2,7 @@ pipeline {
     agent {
         node {
             label "built-in"
-            customWorkspace "/mnt"
+            customWorkspace "/mnt/compose-jobs"
         }
 
     }
